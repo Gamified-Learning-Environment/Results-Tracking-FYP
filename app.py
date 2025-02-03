@@ -33,6 +33,24 @@ def get_result(userId, quizId):
         return jsonify({"message": "Result not found"}), 404
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
+@app.route('/api/results/user/<userId>', methods=['GET'])
+def get_user_results(userId):
+    try:
+        results = db.results_collection.find({'userId': userId})
+        formatted_results = []
+        for result in results:
+            result['_id'] = str(result['_id'])
+            formatted_results.append({
+                'quizId': result['quizId'],
+                'score': result['score'],
+                'totalQuestions': result['totalQuestions'],
+                'percentage': (result['score'] / result['totalQuestions']) * 100,
+                'created_at': result['created_at'].isoformat()
+            })
+        return jsonify(formatted_results)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
     app.run(debug=True, port=8070)

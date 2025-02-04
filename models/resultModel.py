@@ -8,12 +8,16 @@ def createResult(resultData):
     for field in required_fields:
         if field not in resultData:
             raise ValueError(f"Missing required field: {field}")
+        
+    # Calculate percentage
+    percentage = (resultData['score'] / resultData['totalQuestions']) * 100
     
     result = {
         'userId': resultData['userId'],
         'quizId': resultData['quizId'],
         'score': resultData['score'],
         'totalQuestions': resultData['totalQuestions'],
+        'percentage': percentage,
         'created_at': datetime.utcnow()
     }
     

@@ -46,6 +46,7 @@ def get_user_results(userId):
                 'score': result['score'],
                 'totalQuestions': result['totalQuestions'],
                 'percentage': result.get('percentage', (result['score'] / result['totalQuestions']) * 100),
+                'questionAttempts': result['questionAttempts'],
                 'created_at': result['created_at'].isoformat()
             })
         return jsonify(formatted_results)

@@ -4,7 +4,7 @@ def createResult(resultData):
     from db import results_collection
 
     # Validate required fields
-    required_fields = ['userId', 'quizId', 'score', 'totalQuestions']
+    required_fields = ['userId', 'quizId', 'score', 'totalQuestions', 'questionAttempts']
     for field in required_fields:
         if field not in resultData:
             raise ValueError(f"Missing required field: {field}")
@@ -18,6 +18,7 @@ def createResult(resultData):
         'score': resultData['score'],
         'totalQuestions': resultData['totalQuestions'],
         'percentage': percentage,
+        'questionAttempts': resultData['questionAttempts'],
         'created_at': datetime.utcnow()
     }
     

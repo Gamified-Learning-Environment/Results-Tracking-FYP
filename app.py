@@ -34,6 +34,7 @@ def get_result(userId, quizId):
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     
+# Route to get all results for a user
 @app.route('/api/results/user/<userId>', methods=['GET'])
 def get_user_results(userId):
     try:
@@ -52,6 +53,24 @@ def get_user_results(userId):
         return jsonify(formatted_results)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
+# Route to get all results for a user in a specific category
+@app.route('/api/results/category/<user_id>/<category>', methods=['GET'])
+def get_category_results(user_id, category):
+    try:
+        from db import results_collection
+        results = list(results_collection.find({
+            'userId': user_id,
+            'category': category
+        }).sort('created_at', 1))  # Sort by date ascending
+        
+        # Convert ObjectId to string for JSON serialization
+        for result in results:
+            result['_id'] = str(result['_id'])
+            
+        return jsonify(results)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == "__main__":
     app.run(debug=True, port=8070)

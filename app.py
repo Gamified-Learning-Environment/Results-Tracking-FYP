@@ -67,6 +67,9 @@ def get_category_results(user_id, category):
         # Convert ObjectId to string for JSON serialization
         for result in results:
             result['_id'] = str(result['_id'])
+            if 'percentage' not in result:
+                result['percentage'] = (result['score'] / result['totalQuestions']) * 100
+            result['percentage'] = float(result['percentage'])
             
         return jsonify(results)
     except Exception as e:

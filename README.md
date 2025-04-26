@@ -1,11 +1,12 @@
 # FYP - Results Tracking Repository
 This is the repository for Results Tracking and Data Storage for my Gamified Learning Environemnt. This is responsible for logging quiz results, tracking scores, and monitoring student progress. See the Frontend and the Project Dissertation for greater details.
 
-### Contains: 
-Score calculation, result storage, and progress analysis.
-### Technologies: 
-Python (Flask/FastAPI), MongoDB (for storing results and tracking progress).
+## Service Overview
+The Results Tracking Microservice is responsible for recording a user's results on a quiz. They are sent from the frontend back to this microservice for storage, analysed and prepared for visualising on the frontend. This is a crucial element of the platform, and was realised as such shortly after the larger quiz attempt system was employed. It became quickly apparent how much a user could benefit from receiving meaningful feedback as they study, giving them data-driven insight. Additionally, teachers or other students could inspect a student's profile and see the performance.
 
+key components include: 
+- Results Storage: Records information about quiz attempts by a user. This includes total questions, percentage correct, total attempts and study category. This data is stored in MongoDB with appropriate IDs. Both the userID of the user who completed the quiz and the quizID are stored. 
+- Visualisation Data Preparation: Results are optimised for visualisation in the frontend using D3.js.
 
 ## Deployment and Running
 While you could download, compile and run each of the repositories for this Final Year Project and get a more in depth look into the code, it is also fully deployed on Railway at the following link : https://exper-frontend-production.up.railway.app

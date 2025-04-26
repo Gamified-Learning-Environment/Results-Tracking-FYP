@@ -6,13 +6,13 @@ def createResult(resultData):
     # Validate required fields
     required_fields = ['userId', 'quizId', 'score', 'totalQuestions', 'questionAttempts', 'category']
     for field in required_fields:
-        if field not in resultData:
+        if field not in resultData: # check if all required fields are present in the resultData
             raise ValueError(f"Missing required field: {field}")
         
     # Calculate percentage
     percentage = (resultData['score'] / resultData['totalQuestions']) * 100
     
-    result = {
+    result = { # create a new result object
         'userId': resultData['userId'],
         'quizId': resultData['quizId'],
         'score': resultData['score'],
@@ -23,7 +23,7 @@ def createResult(resultData):
         'created_at': datetime.utcnow()
     }
     
-    try:
+    try: # insert the result into the database
         response = results_collection.insert_one(result)
         return str(response.inserted_id)
     except Exception as e:
